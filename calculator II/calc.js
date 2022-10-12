@@ -32,24 +32,58 @@ document.querySelector('.buttons').onclick = (event) => {
 
     // если нажата кнопка 0-9 или .
     if (digit.includes(key)){
-        a += key;
-     
-        out.textContent = a;
+        if (b === '' && sign ===''){
+            a += key;     
+            out.textContent = a;
+        }
+        else if (a!=='' && b!=='' && finish) {
+            b = key;
+            finish = false;
+            out.textContent = b;
+        }
+        else {
+            b += key;
+            out.textContent = b;
+        }
+        console.log(a, b, sign);
+        return; 
+        
     }
-    else if (a!=='' && b!=='' && finish) {
-
-    }
-    else {
-        b += key;
-        out.textContent = a;
-    }
-    console.log(a, b, sign);
-    return;
-
+   
+    
+   
     // если нажата клавиша + - / *
     if (action.includes(key)) {
         sign = key;
         out.textContent = sign;
-        console.log(sign);
+        console.table(sign);
+        returt;
+    }
+    if (key === '='){
+        if (b === '') b = a;
+        switch (sign) {
+            case "+":
+                a = (+a)+(+b);
+                break;
+            case "-":
+                a = a-b;
+                break;
+            case "X":
+                a = a * b;
+                break;
+            case "/":
+                if (b === "0"){
+                    out.textContent = 'Error';
+                    a = '';
+                    b = '';
+                    sign = '';
+                    return;
+                }
+                a = a / b;
+                break;       
+        }
+        finish = true;
+        out.textContent = a;
+        console.table(a, b, sign);
     }
 }
